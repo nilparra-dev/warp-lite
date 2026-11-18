@@ -46,13 +46,21 @@ Primer arranque con config nueva: **1025 ms** de ventana / **2339 ms** de shell 
 
 ## Auditoría de primer arranque
 
-Perfil limpio con `WARP_DATA_PROFILE=audit` y el `settings.toml` copiado:
+`WARP_DATA_PROFILE` **solo funciona en builds debug** (`ChannelState::data_profile()` lo ignora en release). Para auditar un primer arranque real con el binario release hay que renombrar el config dir:
+
+1. Cerrar `warp-lite`.
+2. Renombrar `%LOCALAPPDATA%\warp\WarpLite` a `WarpLite.bak`.
+3. Crear `WarpLite\config` con el `settings.toml` del repo.
+4. Arrancar, capturar la pantalla vacía y un primer comando.
+5. Cerrar, borrar el `WarpLite` nuevo y restaurar `WarpLite.bak`.
+
+Resultado con esa auditoría real:
 
 - No aparece onboarding, login ni modal de bienvenida.
 - Entra directo al terminal.
 - El bloque se renderiza correctamente (`echo audit` → `audit`).
 - No aparece el banner de alias en el perfil limpio.
-- En el perfil principal el banner de alias apareció una vez tras el primer comando (`bench/warp-lite-v0.1.0.png`). Parece un tip de una sola vez ligado a preferencias, no un estado de primer arranque reproducible.
+- En el perfil principal el banner de alias apareció una vez tras el primer comando (`bench/warp-lite-v0.1.0.png`), pero no se reproduce en un perfil limpio. No es un problema de primer arranque.
 - Captura limpia: [`bench/warp-lite-first-run.png`](bench/warp-lite-first-run.png).
 
 Pendiente: auditar menús, command palette, settings y barra superior con perfil limpio, y apuntar cada superficie que no esté en `docs/target-ui.png`.
@@ -60,15 +68,15 @@ Pendiente: auditar menús, command palette, settings y barra superior con perfil
 ## Hallazgos
 
 - **El binario no es debuginfo.** `llvm-objdump -h` da `.text` ~160 MB, `.rdata` ~184 MB y `.pdata` 7,4 MB. `llvm-strip --strip-all` no cambia el tamaño. El PDB de debug es aparte y pesa 626 MB. Para bajar el EXE hay que podar código y assets, no hacer strip.
-- **El árbol de procesos incluye el shell.** 487,6 MB de árbol con 331,1 MB de Warp: el resto es OpenConsole + PowerShell. Cambiar de shell puede mover esa parte sin tocar Warp.
-- **El primer arranque limpio no muestra onboarding ni banner.** El banner de alias es un tip de una sola vez del perfil principal; no se reproduce con `WARP_DATA_PROFILE=audit`.
+- **El árbol de procesos incluye el shell.** 487,6 MB de árbol con 331,1 MB de Warp: el resto es OpenConsole + PowerShell. Cambiar de shell puede mover esa parte sin tocar Warp, pero falta medirlo: el intento con `cmd.exe` no aplicó porque en release se ignora `WARP_DATA_PROFILE` y el perfil principal ya tenía PowerShell persistido. La siguiente prueba debe usar `session.new_session_shell_override` en el perfil real y restaurar el settings después.
+- **El primer arranque limpio no muestra onboarding ni banner.** La UI entra directa al terminal y el bloque funciona.
 - **El primer arranque con config nueva tarda ~1 s de ventana / ~2,3 s de shell** por creación de config/SQLite. Es un coste de una sola vez; no confundirlo con el arranque en caliente.
 
 ## Backlog de optimización
 
 ### 1. Superficies
 
-- [ ] Confirmar si el banner de alias puede reaparecer y, si sí, ocultarlo.
+- [ ] Banner de alias: no se reproduce en un perfil limpio; solo apareció una vez en el perfil principal. Vigilar si reaparece.
 - [ ] Menús AI/Drive/Oz.
 - [ ] Command palette: entradas AI, Drive, onboarding, notebooks, voz, MCP, editor/diff, computer use, auto-update.
 - [ ] Settings: páginas AI/Drive/cloud/telemetry.
