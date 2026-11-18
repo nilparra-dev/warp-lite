@@ -8,6 +8,10 @@ This directory holds the warp-lite docs, settings and scripts. The product is th
 - Target UI: `docs/target-ui.png`.
 - Phase reports and benchmarks: `notes/`.
 
+## Project rules
+
+The UI is frozen at `docs/target-ui.png`. Do not change layout, colors, typography, spacing, copy, banners, menus or component behavior without explicit approval from the user (or a collaborator's request relayed and approved by the user). All optimizations must be measured before and after. See [AGENTS.md](AGENTS.md) and [notes/phase-3.md](notes/phase-3.md).
+
 ## Build
 
 Requirements: Windows, Rust 1.92 (installed from `rust-toolchain.toml`), MSVC Build Tools, CMake, protoc, LLVM/libclang and Git LFS.

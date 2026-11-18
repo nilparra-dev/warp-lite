@@ -2,6 +2,8 @@
 
 This file provides guidance when working with code in this repository.
 
+> **warp-lite fork rules — read first.** This repository is a fork of Warp used to build warp-lite. The UI is frozen: match `warp-lite/docs/target-ui.png`; do not change visible UI (layout, colors, typography, spacing, copy, components, banners, menus) without explicit approval from the user. Every optimization must be measured before and after against the baseline in `warp-lite/notes/phase-3.md`. Full rules (in Spanish): [warp-lite/AGENTS.md](warp-lite/AGENTS.md).
+
 ## Development Commands
 
 ### Build and Run

@@ -22,6 +22,12 @@ Early. The base builds on Windows and matches the target UI. The `warp-lite` bin
 
 See [`warp-lite/notes/`](warp-lite/notes/) for the measurements and the reasoning.
 
+## Rules
+
+- **The UI is frozen** at `warp-lite/docs/target-ui.png`. Do not change visible UI (layout, colors, typography, spacing, copy, banners, menus, components) without explicit approval from the user.
+- **Optimize for lightness, speed and low memory.** Every performance change is measured before and after; see [`warp-lite/notes/phase-3.md`](warp-lite/notes/phase-3.md).
+- Full rules: [`warp-lite/AGENTS.md`](warp-lite/AGENTS.md).
+
 ## Build
 
 Requirements: Windows, Rust 1.92 (pinned by `rust-toolchain.toml`), MSVC Build Tools, CMake, protoc, LLVM/libclang and Git LFS.
