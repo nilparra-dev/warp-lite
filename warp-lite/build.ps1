@@ -1,5 +1,6 @@
 param(
-    [int]$Jobs = 6
+    [int]$Jobs = 6,
+    [switch]$CheckOnly
 )
 
 $ErrorActionPreference = 'Stop'
@@ -61,6 +62,11 @@ Write-Output "CMake:   $cmake"
 Write-Output "protoc:  $protoc"
 Write-Output "LLVM:    $llvm"
 Write-Output "Log:     $Log"
+
+if ($CheckOnly) {
+    Write-Output 'Tools OK'
+    exit 0
+}
 
 Push-Location $Repo
 try {

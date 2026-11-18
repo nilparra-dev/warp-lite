@@ -13,6 +13,7 @@ Requisitos: Windows, Rust 1.92 (lo instala rustup desde `rust-toolchain.toml`), 
 
 ```powershell
 cd D:\dev\warp-lite\warp
+powershell -ExecutionPolicy Bypass -File .\warp-lite\build.ps1 -CheckOnly   # valida CMake/protoc/LLVM
 powershell -ExecutionPolicy Bypass -File .\warp-lite\build.ps1
 ```
 
