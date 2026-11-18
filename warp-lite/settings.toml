@@ -1,0 +1,38 @@
+[appearance]
+
+[appearance.window]
+zoom_level = 125
+
+[general]
+restore_session = false
+show_warning_before_quitting = false
+
+[agents.warp_agent]
+is_any_ai_enabled = false
+
+[agents.warp_agent.other]
+show_conversation_history = false
+show_agent_notifications = false
+should_render_use_agent_toolbar_for_user_commands = false
+
+[agents.warp_agent.input]
+show_agent_tips = false
+show_model_selectors_in_prompt = false
+
+[agents.third_party]
+should_render_cli_agent_toolbar = false
+
+[agents.knowledge]
+rules_enabled = false
+warp_drive_context_enabled = false
+
+[warp_drive]
+enabled = false
+
+[privacy]
+telemetry_enabled = false
+crash_reporting_enabled = false
+
+[code.indexing]
+agent_mode_codebase_context = false
+agent_mode_codebase_context_auto_indexing = false
