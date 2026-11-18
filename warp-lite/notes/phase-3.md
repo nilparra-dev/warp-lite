@@ -79,6 +79,7 @@ Pendiente: auditar menús, command palette, settings y barra superior con perfil
 - **Salida del shell.** Al ejecutar `exit` en el único tab, la app termina. No se puede medir el suelo “solo renderer” así.
 - **Red.** Muestreo de conexiones TCP del árbol durante 15 s: **0 conexiones observadas**. Falta ETW/UDP/DNS para afirmar cero red con rigor.
 - **Símbolos.** `llvm-nm` dice “no symbols”: los símbolos están en el PDB. La secciones del EXE ya muestran que el tamaño es código/datos, no debug.
+- **Assets LFS innecesarios.** Se quitaron del árbol actual 4 PDBs de OpenConsole/conpty (76 MB) y 3 modelos ONNX + tokenizer (54 MB). Las features ONNX están apagadas y `build.rs` no copia los PDBs, así que el binario no cambia; el repo/clon/CI quedan más ligeros.
 
 ## Backlog de optimización
 
@@ -132,7 +133,8 @@ Pendiente: auditar menús, command palette, settings y barra superior con perfil
 - [ ] `strip` no reduce el EXE: no tiene secciones de debug. Los 336,9 MB son `.text` (~160 MB) + `.rdata` (~184 MB); el debug está en un PDB aparte de 626 MB. El tamaño tiene que salir de podar código/assets y, si compensa, de `opt-level = "s"` + LTO.
 - [ ] Probar `release-lite` con `opt-level = "s"`, LTO thin y codegen-units; medir tamaño y rendimiento.
 - [ ] Auditar `.rdata`: assets embebidos (fuentes, iconos, shaders, skills, completion specs) que no se usan.
-- [ ] Quitar assets no usados.
+- [x] Quitar los PDBs y modelos ONNX que no usa la build (130 MB del árbol actual).
+- [ ] Quitar assets embebidos no usados que sí están en el binario.
 - [ ] Icono, versión y nombre.
 - [ ] Medir tamaño tras cada opción.
 
