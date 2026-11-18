@@ -81,6 +81,23 @@ Pendiente: auditar menús, command palette, settings y barra superior con perfil
 - **Símbolos.** `llvm-nm` dice “no symbols”: los símbolos están en el PDB. La secciones del EXE ya muestran que el tamaño es código/datos, no debug.
 - **Assets LFS innecesarios.** Se quitaron del árbol actual 4 PDBs de OpenConsole/conpty (76 MB) y 3 modelos ONNX + tokenizer (54 MB). Las features ONNX están apagadas y `build.rs` no copia los PDBs, así que el binario no cambia; el repo/clon/CI quedan más ligeros.
 
+## Poda de gramáticas (2026-11-19)
+
+El PDB mostró que las gramáticas de `arborium` pesaban ~50 MB de `.rdata`. Se quitaron 18 lenguajes que un terminal no necesita y se dejaron 16:
+
+- **Se quedan:** rust, go, yaml, python, javascript/jsx, typescript, shell, html, css, c, json, toml, powershell, dockerfile, markdown.
+- **Se van:** tsx, java, cpp, c-sharp, jq, hcl, lua, nix, ruby, php, swift, kotlin, scala, elixir, sql, starlark, objc, xml, vue.
+
+Resultado:
+
+- Binario: **336,9 → 293,4 MB** (−43,5 MB, −12,9 %).
+- `.rdata`: ~184 → ~134 MB; `.text`: ~160 → ~157 MB.
+- RAM/arranque en caliente (5 runs): ventana **66,9 ms**, shell **332,0 ms**, proceso **344,8 MB**, árbol **502,3 MB**. Sin cambio significativo; las páginas de gramáticas no estaban residentes.
+- Tests: `cargo test -p languages` → **6/6**.
+- UI: sin cambios para los lenguajes que quedan; los quitados caen a texto plano. La UI objetivo no usa bloques de código.
+
+JSON: [`bench/startup-20261119-002956.json`](bench/startup-20261119-002956.json). Commit: `500531291`.
+
 ## Backlog de optimización
 
 ### 1. Superficies
@@ -130,9 +147,10 @@ Pendiente: auditar menús, command palette, settings y barra superior con perfil
 
 ### 7. Binario y packaging
 
-- [ ] `strip` no reduce el EXE: no tiene secciones de debug. Los 336,9 MB son `.text` (~160 MB) + `.rdata` (~184 MB); el debug está en un PDB aparte de 626 MB. El tamaño tiene que salir de podar código/assets y, si compensa, de `opt-level = "s"` + LTO.
+- [x] `strip` no reduce el EXE: no tiene secciones de debug. El debug está en un PDB aparte de 626 MB. El tamaño tiene que salir de podar código/assets.
+- [x] Gramáticas `arborium`: 336,9 → 293,4 MB (−43,5 MB).
 - [ ] Probar `release-lite` con `opt-level = "s"`, LTO thin y codegen-units; medir tamaño y rendimiento.
-- [ ] Auditar `.rdata`: assets embebidos (fuentes, iconos, shaders, skills, completion specs) que no se usan.
+- [ ] Auditar `.rdata`: `warp_assets` pesa ~60 MB y `warp_command_signatures` ~29 MB; revisar qué se puede quitar.
 - [x] Quitar los PDBs y modelos ONNX que no usa la build (130 MB del árbol actual).
 - [ ] Quitar assets embebidos no usados que sí están en el binario.
 - [ ] Icono, versión y nombre.
@@ -166,3 +184,4 @@ Pendiente: auditar menús, command palette, settings y barra superior con perfil
 | Fecha | Commit | Cambio | Ventana | Shell | RAM proc | RAM árbol | Binario | Captura |
 |---|---|---|---:|---:|---:|---:|---:|---|
 | 2026-11-18 | `c939f41f7` | binario `warp-lite` + perfil propio | 65,2 ms | 388,1 ms | 331,1 MB | 487,6 MB | 336,9 MB | `bench/warp-lite-first-run.png` |
+| 2026-11-19 | `500531291` | poda de gramáticas arborium | 66,9 ms | 332,0 ms | 344,8 MB | 502,3 MB | 293,4 MB | — |
