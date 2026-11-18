@@ -3,10 +3,13 @@ param(
     [string]$Exe,
     [int]$Runs = 5,
     [int]$SettleSeconds = 5,
-    [string]$OutDir = (Join-Path $PSScriptRoot '..\notes\bench')
+    [string]$OutDir
 )
 
 $ErrorActionPreference = 'Stop'
+if (-not $OutDir) {
+    $OutDir = Join-Path $PSScriptRoot '..\notes\bench'
+}
 $Exe = (Resolve-Path $Exe).Path
 New-Item -ItemType Directory -Force -Path $OutDir | Out-Null
 
