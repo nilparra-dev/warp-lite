@@ -34,7 +34,7 @@ The script writes `throughput-done.txt` when it finishes; measure the wall time 
 From the repository root:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\warp-lite\scripts\measure-startup.ps1 -Exe .\target\release\warp-oss.exe -Runs 5
+powershell -ExecutionPolicy Bypass -File .\warp-lite\scripts\measure-startup.ps1 -Exe .\target\release\warp-lite.exe -Runs 5
 ```
 
 Results are written as `startup-<timestamp>.json` in this directory.

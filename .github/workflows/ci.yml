@@ -50,4 +50,4 @@ jobs:
         shell: pwsh
         run: |
           $env:LIBCLANG_PATH = "C:\Program Files\LLVM\bin"
-          cargo check --bin warp-oss --features "gui,skip_login"
+          cargo check --bin warp-lite --features "gui,skip_login"

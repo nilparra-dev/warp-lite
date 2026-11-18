@@ -1,12 +1,13 @@
 param(
     [int]$Jobs = 6,
+    [string]$Bin = 'warp-lite',
     [switch]$CheckOnly
 )
 
 $ErrorActionPreference = 'Stop'
 $Repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $ProjectTools = (Resolve-Path (Join-Path $Repo '..\tools') -ErrorAction SilentlyContinue)
-$Log = Join-Path $env:TEMP "warp-lite-build-$(Get-Date -Format 'yyyyMMdd-HHmmss').log"
+$Log = Join-Path $env:TEMP "$Bin-build-$(Get-Date -Format 'yyyyMMdd-HHmmss').log"
 
 function Find-ExeDir {
     param([Parameter(Mandatory = $true)][string]$Exe)
@@ -85,7 +86,7 @@ Push-Location $Repo
 try {
     $previousEap = $ErrorActionPreference
     $ErrorActionPreference = 'Continue'
-    & cargo build --release --bin warp-oss --features 'gui,skip_login' --timings *>&1 |
+    & cargo build --release --bin $Bin --features 'gui,skip_login' --timings *>&1 |
         Tee-Object -FilePath $Log
     $exit = $LASTEXITCODE
     $ErrorActionPreference = $previousEap
@@ -94,4 +95,4 @@ try {
     Pop-Location
 }
 
-Write-Output "OK: $Repo\target\release\warp-oss.exe"
+Write-Output "OK: $Repo\target\release\$Bin.exe"

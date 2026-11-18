@@ -1,4 +1,4 @@
-# Build de Warp OSS en Windows
+# Build de warp-lite en Windows
 
 ## Herramientas
 
@@ -24,7 +24,7 @@ El script:
 
 - Añade CMake/protoc/LLVM al `PATH`.
 - Configura `LIBCLANG_PATH`.
-- Compila `warp-oss` en `release` con `skip_login`.
+- Compila `warp-lite` en `release` con `skip_login`. Usa `-Bin warp-oss` para la build OSS de referencia.
 - Escribe el log y el informe de timings en `notes/bench/`.
 
 ## Por qué `skip_login`
@@ -38,7 +38,7 @@ El canal OSS usa la configuración de producción de Warp. Sin `skip_login`, el 
 ## Ejecutar
 
 ```powershell
-.\target\release\warp-oss.exe
+.\target\release\warp-lite.exe
 ```
 
 Si falta alguna DLL, están en `app\assets\windows\x64\` y `app/build.rs` las copia al target.

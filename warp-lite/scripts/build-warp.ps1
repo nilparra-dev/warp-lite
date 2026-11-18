@@ -2,7 +2,7 @@ param(
     [ValidateSet('debug', 'release', 'release-lto')]
     [string]$Profile = 'release',
     [string]$Features = 'gui,skip_login',
-    [string]$Bin = 'warp-oss',
+    [string]$Bin = 'warp-lite',
     [int]$Jobs = 6,
     [switch]$NoDefaultFeatures
 )

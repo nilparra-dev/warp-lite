@@ -1,6 +1,6 @@
 $ErrorActionPreference = 'Stop'
 
-$configDir = Join-Path $env:LOCALAPPDATA 'warp\WarpOss\config'
+$configDir = Join-Path $env:LOCALAPPDATA 'warp\WarpLite\config'
 $target = Join-Path $configDir 'settings.toml'
 $source = Join-Path $PSScriptRoot 'settings.toml'
 

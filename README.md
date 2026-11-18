@@ -10,7 +10,7 @@ The UI is not reimplemented. It is the real `app/` UI, pruned from the inside. A
 
 ## Status
 
-Early. The base builds on Windows and matches the target UI. The `warp-lite` channel/binary is the next step; today the build produces `warp-oss` with the `warp-lite` settings profile.
+Early. The base builds on Windows and matches the target UI. The `warp-lite` binary uses the OSS channel with its own application ID (`dev.warp.WarpLite`) and config directory, so it does not share settings or state with `warp-oss`.
 
 | Metric | Warp OSS | Target |
 |---|---:|---:|
@@ -35,8 +35,8 @@ powershell -ExecutionPolicy Bypass -File .\warp-lite\run.ps1
 Manual build:
 
 ```powershell
-cargo build --release --bin warp-oss --features "gui,skip_login"
-.\target\release\warp-oss.exe
+cargo build --release --bin warp-lite --features "gui,skip_login"
+.\target\release\warp-lite.exe
 ```
 
 Do not use `--no-default-features`: it changes the input to the universal variant and removes the agent button bar, so the UI no longer matches the target.

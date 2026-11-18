@@ -1,0 +1,59 @@
+﻿{
+    "exe":  "D:\\dev\\warp-lite\\warp\\target\\release\\warp-lite.exe",
+    "runs":  1,
+    "settle_seconds":  5,
+    "summary":  {
+                    "window_ms":  {
+                                      "count":  1,
+                                      "mean":  1025.1,
+                                      "min":  1025.1,
+                                      "max":  1025.1
+                                  },
+                    "shell_ms":  {
+                                     "count":  1,
+                                     "mean":  2338.6,
+                                     "min":  2338.6,
+                                     "max":  2338.6
+                                 },
+                    "working_set_mb":  {
+                                           "count":  1,
+                                           "mean":  304.9,
+                                           "min":  304.9,
+                                           "max":  304.9
+                                       },
+                    "private_mb":  {
+                                       "count":  1,
+                                       "mean":  417.4,
+                                       "min":  417.4,
+                                       "max":  417.4
+                                   },
+                    "tree_working_set_mb":  {
+                                                "count":  1,
+                                                "mean":  420.3,
+                                                "min":  420.3,
+                                                "max":  420.3
+                                            },
+                    "tree_private_mb":  {
+                                            "count":  1,
+                                            "mean":  495.9,
+                                            "min":  495.9,
+                                            "max":  495.9
+                                        }
+                },
+    "results":  [
+                    {
+                        "window_ms":  1025.1,
+                        "shell_ms":  2338.6,
+                        "shell_name":  "powershell.exe",
+                        "working_set_mb":  304.9,
+                        "private_mb":  417.4,
+                        "tree_working_set_mb":  420.3,
+                        "tree_private_mb":  495.9,
+                        "cpu_seconds_after_settle":  3.8,
+                        "child_count":  4,
+                        "exited_early":  false,
+                        "run":  1,
+                        "timestamp":  "2026-11-18T22:48:34.8994395+01:00"
+                    }
+                ]
+}

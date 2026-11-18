@@ -18,12 +18,12 @@ powershell -ExecutionPolicy Bypass -File .\warp-lite\build.ps1 -CheckOnly
 powershell -ExecutionPolicy Bypass -File .\warp-lite\build.ps1
 ```
 
-`build.ps1` locates CMake, protoc and LLVM, sets `LIBCLANG_PATH`, and builds `warp-oss` in release mode with `gui,skip_login`.
+`build.ps1` locates CMake, protoc and LLVM, sets `LIBCLANG_PATH`, and builds `warp-lite` in release mode with `gui,skip_login`. Use `-Bin warp-oss` to build the upstream OSS binary instead.
 
 Manual equivalent:
 
 ```powershell
-cargo build --release --bin warp-oss --features "gui,skip_login"
+cargo build --release --bin warp-lite --features "gui,skip_login"
 ```
 
 Do not use `--no-default-features`: it changes the input to the universal variant and removes the agent button bar, so the UI stops matching the target.
@@ -34,12 +34,12 @@ Do not use `--no-default-features`: it changes the input to the universal varian
 powershell -ExecutionPolicy Bypass -File .\warp-lite\run.ps1
 ```
 
-`run.ps1` installs `settings.toml` if the config file is missing and starts `target\release\warp-oss.exe`.
+`run.ps1` installs `settings.toml` if the config file is missing and starts `target\release\warp-lite.exe`.
 
-Settings are installed to:
+`warp-lite` uses the OSS channel with the `dev.warp.WarpLite` application ID, so it gets its own config and state directories. Settings are installed to:
 
 ```text
-%LOCALAPPDATA%\warp\WarpOss\config\settings.toml
+%LOCALAPPDATA%\warp\WarpLite\config\settings.toml
 ```
 
 The profile disables AI, the agent footer, model selectors, Warp Drive, telemetry, crash reporting and session restore.
@@ -71,5 +71,5 @@ warp-lite/
 
 - `app/build.rs` copies `conpty.dll`, `OpenConsole.exe` and the DXC DLLs into `<repo>/target/<profile>` and ignores `CARGO_TARGET_DIR`. Do not change the target directory.
 - A full build takes roughly 20–40 minutes.
-- `warp-oss` is a development binary: it does not auto-update and uses a separate config directory (`WarpOss`).
+- `warp-lite` and `warp-oss` are development binaries: they do not auto-update and use separate config directories (`WarpLite` and `WarpOss`).
 - The first launch can take a few seconds while the shell is created.
