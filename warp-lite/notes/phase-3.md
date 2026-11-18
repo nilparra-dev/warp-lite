@@ -31,14 +31,14 @@ JSON: [`bench/startup-20261118-231429.json`](bench/startup-20261118-231429.json)
 | Métrica | Baseline | Objetivo | Notas |
 |---|---:|---:|---|
 | Ventana caliente | **65,2 ms** (48,2–116,1) | <100 ms | ya cumple |
-| Shell listo | **388,1 ms** (302,4–473,4) | <150 ms | PowerShell; probar cmd/pwsh |
+| Shell listo | **388,1 ms** (302,4–473,4) | <150 ms | PowerShell; cmd no soportado, pwsh no instalado |
 | RAM proceso, 1 tab | **331,1 MB** (327–334,8) | ¿<200 MB? | medir suelo del renderer |
 | RAM privada, 1 tab | **436,0 MB** (431–441,5) | — | |
 | RAM árbol, 1 tab | **487,6 MB** (483,2–491,3) | ¿<400 MB? | el shell pesa ~150 MB |
 | RAM privada árbol | **556,9 MB** (551,9–562,6) | — | |
-| RAM 10 tabs | pendiente | medir | |
+| RAM 8 tabs (árbol) | **1540,8 MB** | medir 10 | ~150 MB por tab; 10 tabs ≈ 1,8 GB |
 | Binario | **336,9 MB** | <100 MB | `strip` no ayuda; poda/opt-level |
-| Red al arrancar | pendiente | 0 | medir con proxy/ETW |
+| Red al arrancar | 0 conexiones TCP en 15 s | 0 | falta ETW/UDP/DNS |
 | Throughput 19 MB | 1,4 MB/s | no prioritario | techo de ConPTY |
 | Parser headless | 24,4 MB/s | — | fase 0 |
 
@@ -68,9 +68,17 @@ Pendiente: auditar menús, command palette, settings y barra superior con perfil
 ## Hallazgos
 
 - **El binario no es debuginfo.** `llvm-objdump -h` da `.text` ~160 MB, `.rdata` ~184 MB y `.pdata` 7,4 MB. `llvm-strip --strip-all` no cambia el tamaño. El PDB de debug es aparte y pesa 626 MB. Para bajar el EXE hay que podar código y assets, no hacer strip.
-- **El árbol de procesos incluye el shell.** 487,6 MB de árbol con 331,1 MB de Warp: el resto es OpenConsole + PowerShell. Cambiar de shell puede mover esa parte sin tocar Warp, pero falta medirlo: el intento con `cmd.exe` no aplicó porque en release se ignora `WARP_DATA_PROFILE` y el perfil principal ya tenía PowerShell persistido. La siguiente prueba debe usar `session.new_session_shell_override` en el perfil real y restaurar el settings después.
+- **El árbol de procesos incluye el shell.** 487,6 MB de árbol con 331,1 MB de Warp; con 8 tabs el árbol sube a 1540,8 MB (~150 MB por tab). `cmd.exe` no está soportado por Warp y `pwsh` no está instalado, así que la palanca de shell no es un simple cambio de settings: requiere añadir soporte o instalar/usar otro shell con integración.
 - **El primer arranque limpio no muestra onboarding ni banner.** La UI entra directa al terminal y el bloque funciona.
 - **El primer arranque con config nueva tarda ~1 s de ventana / ~2,3 s de shell** por creación de config/SQLite. Es un coste de una sola vez; no confundirlo con el arranque en caliente.
+
+## Pruebas exploratorias
+
+- **8 tabs.** Abiertos con `Ctrl+Shift+T` (9 pulsaciones, 8 registradas). Procesos: 18 (1 `warp-lite`, 1 `conhost`, 8 `OpenConsole`, 8 `powershell`). RAM árbol **1540,8 MB**, privada **1432,5 MB**. Diferencia frente a 1 tab: ~1053 MB / 7 = **~150 MB por tab**. 10 tabs ≈ 1,8 GB. Captura: [`bench/warp-lite-8-tabs.png`](bench/warp-lite-8-tabs.png).
+- **Shell.** `cmd.exe` no es un shell soportado por Warp; `new_session_shell_override` no aplicó y el perfil siguió usando PowerShell 5.1. `pwsh` no está instalado. Para comparar de verdad haría falta instalar PowerShell 7 o añadir soporte de `cmd`, no es un cambio de settings.
+- **Salida del shell.** Al ejecutar `exit` en el único tab, la app termina. No se puede medir el suelo “solo renderer” así.
+- **Red.** Muestreo de conexiones TCP del árbol durante 15 s: **0 conexiones observadas**. Falta ETW/UDP/DNS para afirmar cero red con rigor.
+- **Símbolos.** `llvm-nm` dice “no symbols”: los símbolos están en el PDB. La secciones del EXE ya muestran que el tamaño es código/datos, no debug.
 
 ## Backlog de optimización
 
@@ -99,15 +107,15 @@ Pendiente: auditar menús, command palette, settings y barra superior con perfil
 
 ### 4. Arranque
 
-- [ ] Medir red con proxy/ETW.
+- [ ] Medir red con ETW/UDP/DNS (el muestreo TCP de 15 s dio 0 conexiones).
 - [ ] Revisar trabajo antes de ventana: DB, migraciones, assets, fuentes, features.
 - [ ] Lazy init de superficies no usadas.
-- [ ] Comparar PowerShell vs `cmd` vs `pwsh -NoProfile` (RAM y tiempo de shell).
+- [ ] Comparar PowerShell 5.1 vs `pwsh` (instalarlo) o añadir soporte de `cmd`; medir RAM y tiempo.
 
 ### 5. RAM
 
-- [ ] Medir 1 vs 10 tabs.
-- [ ] Medir con `cmd` para separar Warp del shell.
+- [ ] Completar la medición de 10 tabs (ya hay 8: 1540,8 MB de árbol).
+- [ ] Medir el suelo de Warp sin shell (no trivial: al salir el último shell, la app termina).
 - [ ] Revisar caches, texturas, atlas de fuentes, scrollback y thumbnails.
 - [ ] Liberar memoria al cerrar tabs.
 - [ ] Evaluar allocator y límites de cache.
