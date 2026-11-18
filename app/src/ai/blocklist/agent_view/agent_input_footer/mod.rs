@@ -2535,6 +2535,11 @@ impl View for AgentInputFooter {
             return self.render_cli_mode_footer(app);
         }
 
+        // En warp-lite, si la IA está desactivada no hay footer de agente.
+        if !AISettings::as_ref(app).is_any_ai_enabled(app) {
+            return Empty::new().finish();
+        }
+
         let session_settings = SessionSettings::as_ref(app);
         let left_items = session_settings.agent_footer_chip_selection.left_items();
         let right_items = session_settings.agent_footer_chip_selection.right_items();
