@@ -8,6 +8,13 @@ $Repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $ProjectTools = (Resolve-Path (Join-Path $Repo '..\tools') -ErrorAction SilentlyContinue)
 $Log = Join-Path $env:TEMP "warp-lite-build-$(Get-Date -Format 'yyyyMMdd-HHmmss').log"
 
+function Find-ExeDir {
+    param([Parameter(Mandatory = $true)][string]$Exe)
+    $cmd = Get-Command $Exe -ErrorAction SilentlyContinue
+    if ($cmd) { return (Split-Path $cmd.Source -Parent) }
+    return $null
+}
+
 function Find-ToolDir {
     param(
         [Parameter(Mandatory = $true)][string]$Exe,
@@ -33,14 +40,20 @@ function Find-ToolDir {
     return $null
 }
 
-$cmake = Find-ToolDir -Exe 'cmake.exe' -Candidates @(
-    "$env:ProgramFiles\CMake\bin",
-    "$env:LOCALAPPDATA\Programs\CMake\bin"
-) -SearchRoots @($ProjectTools)
-$protoc = Find-ToolDir -Exe 'protoc.exe' -Candidates @(
-    "$env:ProgramFiles\Protobuf\bin",
-    "$env:LOCALAPPDATA\Programs\Protobuf\bin"
-) -SearchRoots @($ProjectTools)
+$cmake = Find-ExeDir 'cmake.exe'
+if (-not $cmake) {
+    $cmake = Find-ToolDir -Exe 'cmake.exe' -Candidates @(
+        "$env:ProgramFiles\CMake\bin",
+        "$env:LOCALAPPDATA\Programs\CMake\bin"
+    ) -SearchRoots @($ProjectTools)
+}
+$protoc = Find-ExeDir 'protoc.exe'
+if (-not $protoc) {
+    $protoc = Find-ToolDir -Exe 'protoc.exe' -Candidates @(
+        "$env:ProgramFiles\Protobuf\bin",
+        "$env:LOCALAPPDATA\Programs\Protobuf\bin"
+    ) -SearchRoots @($ProjectTools)
+}
 $llvm = Find-ToolDir -Exe 'libclang.dll' -Candidates @(
     "$env:ProgramFiles\LLVM\bin",
     "${env:ProgramFiles(x86)}\LLVM\bin"

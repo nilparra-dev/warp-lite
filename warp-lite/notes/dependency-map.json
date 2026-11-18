@@ -1,0 +1,776 @@
+{
+  "workspace_crates": 83,
+  "core_roots": [
+    "warp_terminal",
+    "warp_editor",
+    "warpui",
+    "warpui_core",
+    "command",
+    "sum_tree",
+    "settings"
+  ],
+  "core_reachable": [
+    "asset_cache",
+    "channel_versions",
+    "command",
+    "fuzzy_match",
+    "ipynb_parser",
+    "local_control",
+    "markdown_parser",
+    "regex_dfas",
+    "secret_redaction",
+    "settings",
+    "settings_value",
+    "settings_value_derive",
+    "string-offset",
+    "sum_tree",
+    "vim",
+    "virtual-fs",
+    "warp_assets",
+    "warp_cli",
+    "warp_completer",
+    "warp_core",
+    "warp_editor",
+    "warp_errors",
+    "warp_features",
+    "warp_isolation_platform",
+    "warp_terminal",
+    "warp_util",
+    "warpui",
+    "warpui_core",
+    "warpui_extras",
+    "websocket"
+  ],
+  "app_reachable": [
+    "ai",
+    "ai_types",
+    "app-installation-detection",
+    "asset_cache",
+    "asset_macro",
+    "build_cache",
+    "channel_versions",
+    "cloud_object_client",
+    "cloud_object_models",
+    "cloud_object_persistence",
+    "cloud_objects",
+    "command",
+    "computer_use",
+    "computer_use_mcp",
+    "field_mask",
+    "firebase",
+    "fuzzy_match",
+    "handlebars",
+    "http_client",
+    "http_server",
+    "input_classifier",
+    "ipc",
+    "ipynb_parser",
+    "jsonrpc",
+    "languages",
+    "local_control",
+    "lsp",
+    "markdown_parser",
+    "mcp",
+    "natural_language_detection",
+    "node_runtime",
+    "onboarding",
+    "persistence",
+    "prevent_sleep",
+    "preview_proxy",
+    "regex_dfas",
+    "remote_server",
+    "repo_metadata",
+    "secret_redaction",
+    "settings",
+    "settings_value",
+    "settings_value_derive",
+    "simple_logger",
+    "string-offset",
+    "sum_tree",
+    "syntax_tree",
+    "ui_components",
+    "vim",
+    "virtual-fs",
+    "voice_input",
+    "warp",
+    "warp_assets",
+    "warp_channel_config",
+    "warp_cli",
+    "warp_completer",
+    "warp_core",
+    "warp_editor",
+    "warp_errors",
+    "warp_features",
+    "warp_files",
+    "warp_graphql",
+    "warp_graphql_schema",
+    "warp_harness_usage",
+    "warp_isolation_platform",
+    "warp_logging",
+    "warp_managed_secrets",
+    "warp_multi_agent_client",
+    "warp_ripgrep",
+    "warp_search_core",
+    "warp_server_auth",
+    "warp_server_client",
+    "warp_terminal",
+    "warp_util",
+    "warp_web_event_bus",
+    "warpui",
+    "warpui_core",
+    "warpui_extras",
+    "watcher",
+    "websocket"
+  ],
+  "app_only": [
+    "ai",
+    "ai_types",
+    "app-installation-detection",
+    "asset_macro",
+    "build_cache",
+    "cloud_object_client",
+    "cloud_object_models",
+    "cloud_object_persistence",
+    "cloud_objects",
+    "computer_use",
+    "computer_use_mcp",
+    "field_mask",
+    "firebase",
+    "handlebars",
+    "http_client",
+    "http_server",
+    "input_classifier",
+    "ipc",
+    "jsonrpc",
+    "languages",
+    "lsp",
+    "mcp",
+    "natural_language_detection",
+    "node_runtime",
+    "onboarding",
+    "persistence",
+    "prevent_sleep",
+    "preview_proxy",
+    "remote_server",
+    "repo_metadata",
+    "simple_logger",
+    "syntax_tree",
+    "ui_components",
+    "voice_input",
+    "warp",
+    "warp_channel_config",
+    "warp_files",
+    "warp_graphql",
+    "warp_graphql_schema",
+    "warp_harness_usage",
+    "warp_logging",
+    "warp_managed_secrets",
+    "warp_multi_agent_client",
+    "warp_ripgrep",
+    "warp_search_core",
+    "warp_server_auth",
+    "warp_server_client",
+    "warp_web_event_bus",
+    "watcher"
+  ],
+  "core_by_bucket": {
+    "cloud/server": [
+      "websocket"
+    ],
+    "otros": [
+      "asset_cache",
+      "channel_versions",
+      "fuzzy_match",
+      "ipynb_parser",
+      "local_control",
+      "markdown_parser",
+      "regex_dfas",
+      "secret_redaction",
+      "string-offset",
+      "virtual-fs",
+      "warp_assets",
+      "warp_cli",
+      "warp_completer",
+      "warp_core",
+      "warp_errors",
+      "warp_features",
+      "warp_isolation_platform",
+      "warp_util"
+    ],
+    "terminal/ui": [
+      "command",
+      "settings",
+      "settings_value",
+      "settings_value_derive",
+      "sum_tree",
+      "vim",
+      "warp_editor",
+      "warp_terminal",
+      "warpui",
+      "warpui_core",
+      "warpui_extras"
+    ]
+  },
+  "app_only_by_bucket": {
+    "agent/ai": [
+      "ai",
+      "ai_types",
+      "computer_use_mcp",
+      "mcp",
+      "voice_input",
+      "warp_harness_usage",
+      "warp_multi_agent_client"
+    ],
+    "cloud/server": [
+      "cloud_object_client",
+      "cloud_object_models",
+      "cloud_object_persistence",
+      "cloud_objects",
+      "firebase",
+      "http_client",
+      "http_server",
+      "remote_server",
+      "warp_graphql",
+      "warp_graphql_schema",
+      "warp_server_auth",
+      "warp_server_client"
+    ],
+    "editor/code": [
+      "languages",
+      "lsp",
+      "natural_language_detection",
+      "repo_metadata",
+      "syntax_tree",
+      "warp_files",
+      "warp_ripgrep",
+      "warp_search_core",
+      "watcher"
+    ],
+    "otros": [
+      "app-installation-detection",
+      "asset_macro",
+      "computer_use",
+      "field_mask",
+      "handlebars",
+      "input_classifier",
+      "ipc",
+      "jsonrpc",
+      "node_runtime",
+      "onboarding",
+      "persistence",
+      "prevent_sleep",
+      "preview_proxy",
+      "simple_logger",
+      "warp",
+      "warp_channel_config",
+      "warp_managed_secrets",
+      "warp_web_event_bus"
+    ],
+    "telemetry/crash": [
+      "warp_logging"
+    ],
+    "terminal/ui": [
+      "build_cache",
+      "ui_components"
+    ]
+  },
+  "graph": {
+    "ai": [
+      "ai_types",
+      "command",
+      "computer_use",
+      "http_client",
+      "languages",
+      "persistence",
+      "repo_metadata",
+      "settings_value",
+      "string-offset",
+      "syntax_tree",
+      "virtual-fs",
+      "warp_cli",
+      "warp_core",
+      "warp_errors",
+      "warp_graphql",
+      "warp_terminal",
+      "warp_util",
+      "warpui_core",
+      "warpui_extras",
+      "watcher"
+    ],
+    "app-installation-detection": [
+      "command"
+    ],
+    "asset_cache": [
+      "warp_errors",
+      "warpui_core"
+    ],
+    "asset_macro": [
+      "warp_util"
+    ],
+    "build_cache": [
+      "command",
+      "warp_core",
+      "warp_errors"
+    ],
+    "cloud_object_client": [
+      "cloud_object_models",
+      "cloud_objects",
+      "warp_core",
+      "warp_graphql"
+    ],
+    "cloud_object_models": [
+      "ai",
+      "cloud_object_persistence",
+      "cloud_objects",
+      "handlebars",
+      "persistence",
+      "settings",
+      "settings_value",
+      "warp_cli",
+      "warp_core",
+      "warp_errors",
+      "warp_graphql",
+      "warp_util"
+    ],
+    "cloud_object_persistence": [
+      "cloud_objects",
+      "persistence",
+      "warp_core",
+      "warp_graphql"
+    ],
+    "cloud_objects": [
+      "settings_value",
+      "warp_core",
+      "warp_graphql",
+      "warp_server_auth",
+      "warpui_core"
+    ],
+    "command": [
+      "warp_errors"
+    ],
+    "computer_use": [
+      "command",
+      "computer_use",
+      "warp_errors",
+      "warpui_core"
+    ],
+    "computer_use_mcp": [
+      "command",
+      "computer_use"
+    ],
+    "http_client": [
+      "prevent_sleep",
+      "warp_core",
+      "warp_errors"
+    ],
+    "http_server": [
+      "warp_core",
+      "warp_errors",
+      "warpui_core"
+    ],
+    "input_classifier": [
+      "natural_language_detection",
+      "warp_completer",
+      "warp_errors",
+      "warp_features"
+    ],
+    "integration": [
+      "app-installation-detection",
+      "command",
+      "settings",
+      "sum_tree",
+      "warp",
+      "warp_cli",
+      "warp_core",
+      "warpui",
+      "warpui_core",
+      "warpui_extras"
+    ],
+    "ipc": [
+      "warpui_core"
+    ],
+    "ipynb_parser": [
+      "markdown_parser"
+    ],
+    "jsonrpc": [
+      "warp_errors",
+      "warpui_core"
+    ],
+    "languages": [
+      "warp_editor",
+      "warp_util"
+    ],
+    "local_control": [
+      "command"
+    ],
+    "lsp": [
+      "command",
+      "http_client",
+      "jsonrpc",
+      "node_runtime",
+      "repo_metadata",
+      "simple_logger",
+      "warp_core",
+      "warp_errors",
+      "warp_util",
+      "warpui_core"
+    ],
+    "managed_secrets_wasm": [
+      "warp_managed_secrets"
+    ],
+    "mcp": [
+      "cloud_object_models",
+      "handlebars",
+      "simple_logger",
+      "warp_core",
+      "warp_errors",
+      "warpui",
+      "warpui_extras"
+    ],
+    "node_runtime": [
+      "command",
+      "http_client",
+      "warp_core"
+    ],
+    "onboarding": [
+      "ai",
+      "ui_components",
+      "warp_core",
+      "warp_errors",
+      "warp_logging",
+      "warpui",
+      "warpui_core"
+    ],
+    "persistence": [
+      "ai_types"
+    ],
+    "remote_server": [
+      "command",
+      "repo_metadata",
+      "warp_core",
+      "warp_errors",
+      "warp_util",
+      "warpui_core"
+    ],
+    "repo_metadata": [
+      "virtual-fs",
+      "warp_core",
+      "warp_errors",
+      "warp_util",
+      "warpui",
+      "warpui_core",
+      "watcher"
+    ],
+    "secret_redaction": [
+      "regex_dfas",
+      "string-offset",
+      "warp_core",
+      "warp_errors"
+    ],
+    "settings": [
+      "settings_value",
+      "warp_errors",
+      "warp_features",
+      "warpui_core",
+      "warpui_extras"
+    ],
+    "settings_value": [
+      "settings_value_derive"
+    ],
+    "simple_logger": [
+      "warp_core",
+      "warpui_core"
+    ],
+    "sum_tree": [
+      "sum_tree",
+      "warp_errors"
+    ],
+    "syntax_tree": [
+      "languages",
+      "string-offset",
+      "warp_editor",
+      "warp_util",
+      "warpui",
+      "warpui_core"
+    ],
+    "ui_components": [
+      "asset_cache",
+      "warp_core",
+      "warpui",
+      "warpui_core"
+    ],
+    "vim": [
+      "string-offset",
+      "warp_core",
+      "warpui_core"
+    ],
+    "voice_input": [
+      "warp_errors",
+      "warpui_core"
+    ],
+    "warp": [
+      "ai",
+      "ai_types",
+      "app-installation-detection",
+      "asset_cache",
+      "asset_macro",
+      "build_cache",
+      "channel_versions",
+      "cloud_object_client",
+      "cloud_object_models",
+      "cloud_object_persistence",
+      "cloud_objects",
+      "command",
+      "computer_use",
+      "computer_use_mcp",
+      "field_mask",
+      "firebase",
+      "fuzzy_match",
+      "handlebars",
+      "http_client",
+      "http_server",
+      "input_classifier",
+      "ipc",
+      "languages",
+      "local_control",
+      "lsp",
+      "markdown_parser",
+      "mcp",
+      "natural_language_detection",
+      "onboarding",
+      "persistence",
+      "preview_proxy",
+      "remote_server",
+      "repo_metadata",
+      "secret_redaction",
+      "settings",
+      "settings_value",
+      "simple_logger",
+      "string-offset",
+      "sum_tree",
+      "syntax_tree",
+      "ui_components",
+      "vim",
+      "virtual-fs",
+      "voice_input",
+      "warp_assets",
+      "warp_channel_config",
+      "warp_cli",
+      "warp_completer",
+      "warp_core",
+      "warp_editor",
+      "warp_errors",
+      "warp_files",
+      "warp_graphql",
+      "warp_harness_usage",
+      "warp_isolation_platform",
+      "warp_logging",
+      "warp_managed_secrets",
+      "warp_multi_agent_client",
+      "warp_ripgrep",
+      "warp_search_core",
+      "warp_server_auth",
+      "warp_server_client",
+      "warp_terminal",
+      "warp_util",
+      "warp_web_event_bus",
+      "warpui",
+      "warpui_core",
+      "warpui_extras",
+      "watcher",
+      "websocket"
+    ],
+    "warp_assets": [
+      "warpui_core"
+    ],
+    "warp_channel_config": [
+      "command",
+      "warp_core"
+    ],
+    "warp_cli": [
+      "local_control",
+      "warp_core",
+      "warp_util"
+    ],
+    "warp_completer": [
+      "command",
+      "fuzzy_match",
+      "string-offset",
+      "warp_cli",
+      "warp_completer",
+      "warp_core",
+      "warp_util",
+      "warpui_core"
+    ],
+    "warp_core": [
+      "settings",
+      "settings_value",
+      "string-offset",
+      "warp_errors",
+      "warp_features",
+      "warp_util",
+      "warpui_core",
+      "warpui_extras",
+      "websocket"
+    ],
+    "warp_editor": [
+      "asset_cache",
+      "ipynb_parser",
+      "markdown_parser",
+      "string-offset",
+      "sum_tree",
+      "vim",
+      "warp_core",
+      "warp_errors",
+      "warp_util",
+      "warpui",
+      "warpui_core"
+    ],
+    "warp_errors": [
+      "websocket"
+    ],
+    "warp_files": [
+      "remote_server",
+      "repo_metadata",
+      "warp_core",
+      "warp_util",
+      "warpui_core",
+      "watcher"
+    ],
+    "warp_graphql": [
+      "http_client",
+      "persistence",
+      "warp_core",
+      "warp_errors",
+      "warp_graphql_schema",
+      "websocket"
+    ],
+    "warp_isolation_platform": [
+      "command",
+      "warp_core"
+    ],
+    "warp_logging": [
+      "warp_core",
+      "warp_errors",
+      "warp_web_event_bus"
+    ],
+    "warp_managed_secrets": [
+      "warp_core",
+      "warp_graphql",
+      "warp_isolation_platform",
+      "warpui_core"
+    ],
+    "warp_multi_agent_client": [
+      "warp_core",
+      "warp_server_client"
+    ],
+    "warp_ripgrep": [
+      "command",
+      "string-offset",
+      "warp_cli"
+    ],
+    "warp_search_core": [
+      "string-offset",
+      "warp_core",
+      "warp_errors",
+      "warpui_core"
+    ],
+    "warp_server_auth": [
+      "warp_core",
+      "warp_errors",
+      "warp_graphql",
+      "warp_managed_secrets",
+      "warpui_core",
+      "warpui_extras"
+    ],
+    "warp_server_client": [
+      "cloud_object_client",
+      "cloud_object_models",
+      "cloud_objects",
+      "command",
+      "firebase",
+      "http_client",
+      "settings_value",
+      "warp_core",
+      "warp_errors",
+      "warp_graphql",
+      "warp_isolation_platform",
+      "warp_server_auth",
+      "warpui_core",
+      "websocket"
+    ],
+    "warp_terminal": [
+      "channel_versions",
+      "command",
+      "regex_dfas",
+      "secret_redaction",
+      "string-offset",
+      "warp_assets",
+      "warp_cli",
+      "warp_completer",
+      "warp_core",
+      "warp_errors",
+      "warp_isolation_platform",
+      "warp_util",
+      "warpui_core"
+    ],
+    "warp_tui": [
+      "ai",
+      "channel_versions",
+      "command",
+      "http_client",
+      "markdown_parser",
+      "string-offset",
+      "sum_tree",
+      "vim",
+      "warp",
+      "warp_channel_config",
+      "warp_completer",
+      "warp_core",
+      "warp_editor",
+      "warp_errors",
+      "warp_files",
+      "warp_logging",
+      "warp_search_core",
+      "warp_terminal",
+      "warp_util",
+      "warpui",
+      "warpui_core",
+      "warpui_extras"
+    ],
+    "warp_util": [
+      "command",
+      "warp_errors",
+      "warpui_core"
+    ],
+    "warpui": [
+      "asset_cache",
+      "command",
+      "markdown_parser",
+      "sum_tree",
+      "virtual-fs",
+      "warp_errors",
+      "warpui",
+      "warpui_core"
+    ],
+    "warpui_core": [
+      "command",
+      "markdown_parser",
+      "settings_value",
+      "string-offset",
+      "sum_tree",
+      "warp_errors",
+      "warp_util",
+      "warpui_core"
+    ],
+    "warpui_extras": [
+      "warp_errors",
+      "warpui_core",
+      "warpui_extras"
+    ],
+    "watcher": [
+      "warp_errors",
+      "warpui_core"
+    ]
+  }
+}

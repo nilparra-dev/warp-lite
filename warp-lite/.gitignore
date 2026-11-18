@@ -1,0 +1,8 @@
+# Generated benchmark inputs and outputs. Regenerate them with the commands in
+# notes/bench/README.md instead of committing them.
+notes/bench/big*.txt
+notes/bench/*.log
+notes/bench/L*.txt
+notes/bench/latency-*.txt
+notes/bench/*-done.txt
+notes/bench/warp-echo.txt

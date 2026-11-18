@@ -1,0 +1,93 @@
+﻿{
+    "exe":  "D:\\dev\\warp-lite\\warp\\target\\release\\warp-oss.exe",
+    "runs":  5,
+    "settle_seconds":  5,
+    "summary":  {
+                    "window_ms":  {
+                                      "count":  5,
+                                      "mean":  67.2,
+                                      "min":  49.6,
+                                      "max":  81.7
+                                  },
+                    "shell_ms":  {
+                                     "count":  5,
+                                     "mean":  342.1,
+                                     "min":  299.1,
+                                     "max":  460.5
+                                 },
+                    "working_set_mb":  {
+                                           "count":  5,
+                                           "mean":  366.4,
+                                           "min":  353,
+                                           "max":  378.2
+                                       },
+                    "private_mb":  {
+                                       "count":  5,
+                                       "mean":  498.3,
+                                       "min":  456.5,
+                                       "max":  568.6
+                                   }
+                },
+    "results":  [
+                    {
+                        "window_ms":  81.7,
+                        "shell_ms":  460.5,
+                        "shell_name":  "powershell.exe",
+                        "working_set_mb":  353,
+                        "private_mb":  476.1,
+                        "cpu_seconds_after_settle":  3.98,
+                        "child_count":  6,
+                        "exited_early":  false,
+                        "run":  1,
+                        "timestamp":  "2026-11-18T17:01:30.7917587+01:00"
+                    },
+                    {
+                        "window_ms":  62.9,
+                        "shell_ms":  317.1,
+                        "shell_name":  "powershell.exe",
+                        "working_set_mb":  378.2,
+                        "private_mb":  568.6,
+                        "cpu_seconds_after_settle":  3.84,
+                        "child_count":  11,
+                        "exited_early":  false,
+                        "run":  2,
+                        "timestamp":  "2026-11-18T17:01:39.0172958+01:00"
+                    },
+                    {
+                        "window_ms":  62.9,
+                        "shell_ms":  299.1,
+                        "shell_name":  "powershell.exe",
+                        "working_set_mb":  365.8,
+                        "private_mb":  526.6,
+                        "cpu_seconds_after_settle":  3.5,
+                        "child_count":  7,
+                        "exited_early":  false,
+                        "run":  3,
+                        "timestamp":  "2026-11-18T17:01:47.2033057+01:00"
+                    },
+                    {
+                        "window_ms":  49.6,
+                        "shell_ms":  301.4,
+                        "shell_name":  "powershell.exe",
+                        "working_set_mb":  371.5,
+                        "private_mb":  463.6,
+                        "cpu_seconds_after_settle":  3.69,
+                        "child_count":  5,
+                        "exited_early":  false,
+                        "run":  4,
+                        "timestamp":  "2026-11-18T17:01:55.3783981+01:00"
+                    },
+                    {
+                        "window_ms":  79,
+                        "shell_ms":  332.2,
+                        "shell_name":  "powershell.exe",
+                        "working_set_mb":  363.3,
+                        "private_mb":  456.5,
+                        "cpu_seconds_after_settle":  3.66,
+                        "child_count":  5,
+                        "exited_early":  false,
+                        "run":  5,
+                        "timestamp":  "2026-11-18T17:02:03.5677438+01:00"
+                    }
+                ]
+}

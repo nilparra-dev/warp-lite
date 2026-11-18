@@ -1,92 +1,75 @@
 # warp-lite base
 
-Esta rama es la **base exacta de Warp** sobre la que vamos a construir warp-lite.
+This directory holds the warp-lite docs, settings and scripts. The product is the real Warp UI in `app/`; nothing in the UI is reimplemented.
 
-- Upstream: `warpdotdev/warp` en `a4ad25c41`.
-- Parche local: ocultar el footer de agente cuando AI está desactivado (`7b93a896b`).
-- UI objetivo: [docs/target-ui.png](docs/target-ui.png).
-- La UI **no se reimplementa**: se usa la app real de Warp (`app/`) y se le quitan funcionalidades por settings, flags y poda de código/crates.
+- Upstream: `warpdotdev/warp` at `a4ad25c41`.
+- Local patch: hide the agent input footer when AI is disabled (`63abf362e`).
+- Settings profile: `settings.toml`.
+- Target UI: `docs/target-ui.png`.
+- Phase reports and benchmarks: `notes/`.
 
 ## Build
 
-Requisitos: Windows, Rust 1.92 (lo instala rustup desde `rust-toolchain.toml`), MSVC Build Tools, CMake, protoc, LLVM/libclang, Git LFS.
+Requirements: Windows, Rust 1.92 (installed from `rust-toolchain.toml`), MSVC Build Tools, CMake, protoc, LLVM/libclang and Git LFS.
 
 ```powershell
-cd D:\dev\warp-lite\warp
-powershell -ExecutionPolicy Bypass -File .\warp-lite\build.ps1 -CheckOnly   # valida CMake/protoc/LLVM
+# from the repository root
+powershell -ExecutionPolicy Bypass -File .\warp-lite\build.ps1 -CheckOnly
 powershell -ExecutionPolicy Bypass -File .\warp-lite\build.ps1
 ```
 
-Build completo, **sin** `--no-default-features`:
+`build.ps1` locates CMake, protoc and LLVM, sets `LIBCLANG_PATH`, and builds `warp-oss` in release mode with `gui,skip_login`.
+
+Manual equivalent:
 
 ```powershell
 cargo build --release --bin warp-oss --features "gui,skip_login"
 ```
 
-No uses `--no-default-features` para la UI: cambia el input a la variante universal y saca el button bar de agente (A, imagen, @, +). La build completa con el perfil de settings es la que da la UI objetivo.
+Do not use `--no-default-features`: it changes the input to the universal variant and removes the agent button bar, so the UI stops matching the target.
 
-## Ejecutar
+## Run
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\warp-lite\install-settings.ps1
 powershell -ExecutionPolicy Bypass -File .\warp-lite\run.ps1
 ```
 
-O directamente:
+`run.ps1` installs `settings.toml` if the config file is missing and starts `target\release\warp-oss.exe`.
 
-```powershell
-.\target\release\warp-oss.exe
-```
-
-`skip_login` crea un usuario de test; no hay login real. El perfil de settings apaga AI, Warp Drive, cloud y telemetría.
-
-## Settings
-
-`settings.toml` se instala en:
+Settings are installed to:
 
 ```text
 %LOCALAPPDATA%\warp\WarpOss\config\settings.toml
 ```
 
-Incluye:
+The profile disables AI, the agent footer, model selectors, Warp Drive, telemetry, crash reporting and session restore.
 
-- AI off (`agents.warp_agent.is_any_ai_enabled = false`).
-- Model selector off.
-- Agent footer off.
-- Warp Drive off.
-- Telemetría/crash reporting off.
-- Sin restaurar sesión.
+## What we keep
 
-## Qué queremos conservar
+Terminal, blocks, tabs, input editor, completions, syntax highlighting, themes, keybindings, splits and scrollback. External CLI agents (Claude Code, OpenCode, Codex) run as normal commands.
 
-- Terminal, bloques, tabs, input editor.
-- Completions, syntax highlighting, temas, keybindings, splits.
-- La posibilidad de ejecutar agentes CLI externos (Claude Code, OpenCode, Codex) como comandos normales dentro del terminal.
+## What we remove
 
-## Qué vamos a quitar
+Warp's agent/Oz/agent mode, Warp Drive/cloud/login/collaboration, onboarding, notebooks, voice, MCP, code editor/diff, file tree, LSP, computer use, auto-update and factories.
 
-- Agente propio de Warp, Oz, agent mode, MCP propio.
-- Warp Drive, cloud, login, colaboración.
-- Onboarding, notebooks, voz.
-- Editor de código/diff, file tree, LSP, computer use.
-- Auto-update, telemetry, factories.
+The goal is incremental and measured: remove one surface or crate, build, check that the UI still matches, and record startup/RAM.
 
-La poda debe ser **incremental y medida**: quitar una superficie/crate, compilar, arrancar, comprobar que la UI sigue igual y medir RAM/arranque.
-
-## Laboratorio
-
-El prototipo de terminal propio (`warp_lite`, PTY + parser + benchmarks) **no está en esta rama**. Está guardado en:
+## Layout
 
 ```text
-tag lab/prototype-v1
+warp-lite/
+  build.ps1              build helper for Windows
+  run.ps1                install settings if needed and launch
+  install-settings.ps1   install settings.toml into the channel config dir
+  settings.toml          minimal terminal profile
+  docs/                  target UI capture
+  notes/                 phase reports, benchmarks and screenshots
+  scripts/               build and benchmark harness
 ```
 
-Es solo un laboratorio de rendimiento. No es la UI del producto.
+## Known traps
 
-## Trampas conocidas
-
-- `app/build.rs` copia `conpty.dll`/`OpenConsole.exe`/DXC a `<workspace>/target/<profile>` e ignora `CARGO_TARGET_DIR`. No cambies el target dir.
-- La build completa tarda ~20-40 min.
-- `warp-oss` es un binario de desarrollo: no auto-actualiza y usa un directorio de config separado (`WarpOss`).
-- El primer arranque puede tardar en crear la shell; espera unos segundos antes de teclear.
-- Si ves dos tabs restaurados, revisa `general.restore_session` y el estado persistido.
+- `app/build.rs` copies `conpty.dll`, `OpenConsole.exe` and the DXC DLLs into `<repo>/target/<profile>` and ignores `CARGO_TARGET_DIR`. Do not change the target directory.
+- A full build takes roughly 20–40 minutes.
+- `warp-oss` is a development binary: it does not auto-update and uses a separate config directory (`WarpOss`).
+- The first launch can take a few seconds while the shell is created.
