@@ -1,13 +1,16 @@
 param(
     [ValidateSet('debug', 'release', 'release-lto')]
     [string]$Profile = 'release',
-    [string]$Features = 'gui,skip_login',
+    [string]$Features = '',
     [string]$Bin = 'warp-lite',
     [int]$Jobs = 6,
     [switch]$NoDefaultFeatures
 )
 
 $ErrorActionPreference = 'Stop'
+if (-not $Features) {
+    $Features = if ($Bin -eq 'warp-lite') { 'gui,skip_login,lite_assets' } else { 'gui,skip_login' }
+}
 $Repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $LogDir = Join-Path $PSScriptRoot '..\notes\bench'
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null

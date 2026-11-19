@@ -1,10 +1,14 @@
 param(
     [int]$Jobs = 6,
     [string]$Bin = 'warp-lite',
+    [string]$Features = '',
     [switch]$CheckOnly
 )
 
 $ErrorActionPreference = 'Stop'
+if (-not $Features) {
+    $Features = if ($Bin -eq 'warp-lite') { 'gui,skip_login,lite_assets' } else { 'gui,skip_login' }
+}
 $Repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $ProjectTools = (Resolve-Path (Join-Path $Repo '..\tools') -ErrorAction SilentlyContinue)
 $Log = Join-Path $env:TEMP "$Bin-build-$(Get-Date -Format 'yyyyMMdd-HHmmss').log"
@@ -86,7 +90,7 @@ Push-Location $Repo
 try {
     $previousEap = $ErrorActionPreference
     $ErrorActionPreference = 'Continue'
-    & cargo build --release --bin $Bin --features 'gui,skip_login' --timings *>&1 |
+    & cargo build --release --bin $Bin --features $Features --timings *>&1 |
         Tee-Object -FilePath $Log
     $exit = $LASTEXITCODE
     $ErrorActionPreference = $previousEap

@@ -15,6 +15,8 @@ use warpui_core::AssetProvider;
 // embedded asset set to keep the CLI binary small — mirroring the carve-out
 // already applied for the WASM target above.
 #[cfg_attr(feature = "standalone", exclude = "async/**")]
+// warp-lite keeps the theme JPGs but drops the onboarding/AI/Oz PNGs.
+#[cfg_attr(feature = "lite_assets", exclude = "async/png/**")]
 pub struct Assets;
 
 impl AssetProvider for Assets {

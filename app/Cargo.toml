@@ -26,6 +26,7 @@ test = false
 name = "warp-lite"
 path = "src/bin/lite.rs"
 test = false
+required-features = ["lite_assets"]
 
 [[bin]]
 name = "warp"
@@ -856,6 +857,7 @@ session_sharing_acls = []
 skip_login = ["warp_server_client/skip_login"]
 # This feature should only be enabled when building a self-contained binary with the bundle script.
 standalone = ["warp_assets/standalone", "warp_core/standalone"]
+lite_assets = ["warp_assets/lite_assets"]
 prompt_suggestions_via_maa = []
 voice_input = ["dep:voice_input"]
 tab_close_button_on_left = []
