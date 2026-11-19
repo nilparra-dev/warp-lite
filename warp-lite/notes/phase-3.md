@@ -98,6 +98,20 @@ Resultado:
 
 JSON: [`bench/startup-20261119-002956.json`](bench/startup-20261119-002956.json). Commit: `500531291`.
 
+## Poda de assets async (2026-11-19)
+
+`warp_assets` metía ~60 MB de `.rdata`; de ellos, ~49 MB eran PNGs de `app/assets/async/png` (onboarding, agentes, Oz, Codex, trial y banners). Los JPGs de temas (~8 MB) se quedan. Se añadió la feature `lite_assets` a `warp_assets` y el binario `warp-lite` la exige.
+
+Resultado:
+
+- Binario: **293,4 → 245,5 MB** (−47,9 MB, −16,3 %). Acumulado desde el inicio: **336,9 → 245,5 MB** (−91,4 MB, −27,1 %).
+- `.rdata`: ~134 → ~86 MB; `.text`: ~157 MB sin cambios.
+- RAM/arranque en caliente (5 runs): ventana **65,2 ms**, shell **316,2 ms**, proceso **340,8 MB**, árbol **497,4 MB**. La RAM no baja (las páginas no estaban residentes), pero el arranque de shell mejora ~72 ms.
+- UI verificada: `bench/warp-lite-245mb.png`; el terminal, tab bar, bloques, input y chips siguen iguales. Los PNGs quitados eran de onboarding/AI/Oz, no de la UI objetivo.
+- Tests: el build release compila; `cargo test -p languages` sigue en 6/6.
+
+JSON: [`bench/startup-20261119-010117.json`](bench/startup-20261119-010117.json). Commit: `ce034d19c`.
+
 ## Backlog de optimización
 
 ### 1. Superficies
@@ -150,9 +164,10 @@ JSON: [`bench/startup-20261119-002956.json`](bench/startup-20261119-002956.json)
 - [x] `strip` no reduce el EXE: no tiene secciones de debug. El debug está en un PDB aparte de 626 MB. El tamaño tiene que salir de podar código/assets.
 - [x] Gramáticas `arborium`: 336,9 → 293,4 MB (−43,5 MB).
 - [ ] Probar `release-lite` con `opt-level = "s"`, LTO thin y codegen-units; medir tamaño y rendimiento.
-- [ ] Auditar `.rdata`: `warp_assets` pesa ~60 MB y `warp_command_signatures` ~29 MB; revisar qué se puede quitar.
+- [x] Excluir los PNGs async de onboarding/AI/Oz del binario `warp-lite` (49 MB); los JPGs de temas se quedan.
+- [ ] Auditar `warp_command_signatures` (~29 MB) y los assets bundled (~3,7 MB); revisar qué se puede quitar.
 - [x] Quitar los PDBs y modelos ONNX que no usa la build (130 MB del árbol actual).
-- [ ] Quitar assets embebidos no usados que sí están en el binario.
+- [ ] Revisar si quedan assets embebidos no usados.
 - [ ] Icono, versión y nombre.
 - [ ] Medir tamaño tras cada opción.
 
@@ -185,3 +200,4 @@ JSON: [`bench/startup-20261119-002956.json`](bench/startup-20261119-002956.json)
 |---|---|---|---:|---:|---:|---:|---:|---|
 | 2026-11-18 | `c939f41f7` | binario `warp-lite` + perfil propio | 65,2 ms | 388,1 ms | 331,1 MB | 487,6 MB | 336,9 MB | `bench/warp-lite-first-run.png` |
 | 2026-11-19 | `500531291` | poda de gramáticas arborium | 66,9 ms | 332,0 ms | 344,8 MB | 502,3 MB | 293,4 MB | — |
+| 2026-11-19 | `ce034d19c` | poda de PNGs async (`lite_assets`) | 65,2 ms | 316,2 ms | 340,8 MB | 497,4 MB | 245,5 MB | `bench/warp-lite-245mb.png` |

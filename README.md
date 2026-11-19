@@ -10,7 +10,7 @@ The UI is not reimplemented. It is the real `app/` UI, pruned from the inside. A
 
 ## Status
 
-Early. The base builds on Windows and matches the target UI. The `warp-lite` binary uses the OSS channel with its own application ID (`dev.warp.WarpLite`) and config directory, so it does not share settings or state with `warp-oss`. The first pruning pass removed the console PDBs, unused ONNX models and 18 language grammars: the binary is now **293 MB**.
+Early. The base builds on Windows and matches the target UI. The `warp-lite` binary uses the OSS channel with its own application ID (`dev.warp.WarpLite`) and config directory, so it does not share settings or state with `warp-oss`. The first pruning pass removed the console PDBs, unused ONNX models, 18 language grammars and 49 MB of onboarding/AI PNGs: the binary is now **245 MB**.
 
 | Metric | Warp OSS | Target |
 |---|---:|---:|
@@ -20,7 +20,7 @@ Early. The base builds on Windows and matches the target UI. The `warp-lite` bin
 | Binary | 337 MB | <30 MB |
 | Throughput, 19 MB | 1.4 MB/s | >20 MB/s |
 
-Current warp-lite (2026-11-19): **293 MB** binary, **67 ms** window, **332 ms** shell, **345 MB** RAM (1 tab, 5 warm runs). See [`warp-lite/notes/`](warp-lite/notes/) for the measurements and the reasoning.
+Current warp-lite (2026-11-19): **245 MB** binary, **65 ms** window, **316 ms** shell, **341 MB** RAM (1 tab, 5 warm runs). See [`warp-lite/notes/`](warp-lite/notes/) for the measurements and the reasoning.
 
 ## Rules
 
@@ -41,7 +41,7 @@ powershell -ExecutionPolicy Bypass -File .\warp-lite\run.ps1
 Manual build:
 
 ```powershell
-cargo build --release --bin warp-lite --features "gui,skip_login"
+cargo build --release --bin warp-lite --features "gui,skip_login,lite_assets"
 .\target\release\warp-lite.exe
 ```
 

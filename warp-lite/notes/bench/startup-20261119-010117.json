@@ -1,0 +1,115 @@
+﻿{
+    "exe":  "D:\\dev\\warp-lite\\warp\\target\\release\\warp-lite.exe",
+    "runs":  5,
+    "settle_seconds":  5,
+    "summary":  {
+                    "window_ms":  {
+                                      "count":  5,
+                                      "mean":  65.2,
+                                      "min":  47.6,
+                                      "max":  132.7
+                                  },
+                    "shell_ms":  {
+                                     "count":  5,
+                                     "mean":  316.2,
+                                     "min":  277.4,
+                                     "max":  441.3
+                                 },
+                    "working_set_mb":  {
+                                           "count":  5,
+                                           "mean":  340.8,
+                                           "min":  328.7,
+                                           "max":  352
+                                       },
+                    "private_mb":  {
+                                       "count":  5,
+                                       "mean":  446.2,
+                                       "min":  434,
+                                       "max":  457.2
+                                   },
+                    "tree_working_set_mb":  {
+                                                "count":  5,
+                                                "mean":  497.4,
+                                                "min":  485.5,
+                                                "max":  508.2
+                                            },
+                    "tree_private_mb":  {
+                                            "count":  5,
+                                            "mean":  567.1,
+                                            "min":  555,
+                                            "max":  577.8
+                                        }
+                },
+    "results":  [
+                    {
+                        "window_ms":  132.7,
+                        "shell_ms":  441.3,
+                        "shell_name":  "powershell.exe",
+                        "working_set_mb":  328.7,
+                        "private_mb":  434,
+                        "tree_working_set_mb":  485.5,
+                        "tree_private_mb":  555,
+                        "cpu_seconds_after_settle":  3.16,
+                        "child_count":  3,
+                        "exited_early":  false,
+                        "run":  1,
+                        "timestamp":  "2026-11-19T01:00:41.6783302+01:00"
+                    },
+                    {
+                        "window_ms":  47.9,
+                        "shell_ms":  299.5,
+                        "shell_name":  "powershell.exe",
+                        "working_set_mb":  331.7,
+                        "private_mb":  436,
+                        "tree_working_set_mb":  488.2,
+                        "tree_private_mb":  557.1,
+                        "cpu_seconds_after_settle":  3.28,
+                        "child_count":  3,
+                        "exited_early":  false,
+                        "run":  2,
+                        "timestamp":  "2026-11-19T01:00:49.8598597+01:00"
+                    },
+                    {
+                        "window_ms":  49.2,
+                        "shell_ms":  278.6,
+                        "shell_name":  "powershell.exe",
+                        "working_set_mb":  350.5,
+                        "private_mb":  456.3,
+                        "tree_working_set_mb":  507.4,
+                        "tree_private_mb":  577.5,
+                        "cpu_seconds_after_settle":  3.27,
+                        "child_count":  3,
+                        "exited_early":  false,
+                        "run":  3,
+                        "timestamp":  "2026-11-19T01:00:58.0078453+01:00"
+                    },
+                    {
+                        "window_ms":  47.6,
+                        "shell_ms":  284,
+                        "shell_name":  "powershell.exe",
+                        "working_set_mb":  341.3,
+                        "private_mb":  447.3,
+                        "tree_working_set_mb":  497.7,
+                        "tree_private_mb":  567.9,
+                        "cpu_seconds_after_settle":  3.25,
+                        "child_count":  3,
+                        "exited_early":  false,
+                        "run":  4,
+                        "timestamp":  "2026-11-19T01:01:06.1705814+01:00"
+                    },
+                    {
+                        "window_ms":  48.8,
+                        "shell_ms":  277.4,
+                        "shell_name":  "powershell.exe",
+                        "working_set_mb":  352,
+                        "private_mb":  457.2,
+                        "tree_working_set_mb":  508.2,
+                        "tree_private_mb":  577.8,
+                        "cpu_seconds_after_settle":  3.23,
+                        "child_count":  3,
+                        "exited_early":  false,
+                        "run":  5,
+                        "timestamp":  "2026-11-19T01:01:14.3272450+01:00"
+                    }
+                ]
+}

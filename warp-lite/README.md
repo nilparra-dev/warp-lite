@@ -22,12 +22,12 @@ powershell -ExecutionPolicy Bypass -File .\warp-lite\build.ps1 -CheckOnly
 powershell -ExecutionPolicy Bypass -File .\warp-lite\build.ps1
 ```
 
-`build.ps1` locates CMake, protoc and LLVM, sets `LIBCLANG_PATH`, and builds `warp-lite` in release mode with `gui,skip_login`. Use `-Bin warp-oss` to build the upstream OSS binary instead.
+`build.ps1` locates CMake, protoc and LLVM, sets `LIBCLANG_PATH`, and builds `warp-lite` in release mode with `gui,skip_login,lite_assets`. Use `-Bin warp-oss` to build the upstream OSS binary for comparison; it automatically drops `lite_assets`.
 
 Manual equivalent:
 
 ```powershell
-cargo build --release --bin warp-lite --features "gui,skip_login"
+cargo build --release --bin warp-lite --features "gui,skip_login,lite_assets"
 ```
 
 Do not use `--no-default-features`: it changes the input to the universal variant and removes the agent button bar, so the UI stops matching the target.
@@ -57,6 +57,10 @@ Terminal, blocks, tabs, input editor, completions, syntax highlighting, themes, 
 Warp's agent/Oz/agent mode, Warp Drive/cloud/login/collaboration, onboarding, notebooks, voice, MCP, code editor/diff, file tree, LSP, computer use, auto-update and factories.
 
 The goal is incremental and measured: remove one surface or crate, build, check that the UI still matches, and record startup/RAM.
+
+## Reduced assets and languages
+
+`lite_assets` excludes the onboarding/AI/Oz PNGs from `app/assets/async/png`; theme JPGs and bundled assets remain. Syntax highlighting keeps the common languages (rust, go, yaml, python, javascript/jsx, typescript, shell, html, css, c, json, toml, powershell, dockerfile, markdown); the other grammars were removed to cut ~43 MB from the binary.
 
 ## Layout
 
